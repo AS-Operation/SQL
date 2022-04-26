@@ -1,0 +1,33 @@
+/* Create table about the people and what they do here */
+CREATE TABLE persons (id INTEGER PRIMARY KEY AUTOINCREMENT, person_id INTEGER, first_name TEXT, last_name TEXT);
+
+INSERT INTO persons (person_id, first_name,last_name) VALUES (1,"Oprah", "Winfrey");
+INSERT INTO persons (person_id, first_name,last_name) VALUES (2,"Tom", "Hanks");
+INSERT INTO persons (person_id, first_name,last_name) VALUES (3,"Metta", "Sandiford");
+INSERT INTO persons (person_id , first_name,last_name) VALUES (4,"Allen", "Iverson");
+INSERT INTO persons (person_id, first_name,last_name) VALUES (5,"Coco", "Crisp");
+
+CREATE TABLE profession (id INTEGER PRIMARY KEY AUTOINCREMENT, person_id INTEGER, job TEXT);
+
+INSERT INTO profession (person_id, job) VALUES (1,"Actor");
+INSERT INTO profession (person_id ,job) VALUES (2,"Actor");
+INSERT INTO profession (person_id ,job) VALUES (3,"Basketball");
+INSERT INTO profession (person_id ,job) VALUES (4,"Basketball");
+INSERT INTO profession (person_id ,job) VALUES (5,"Baseball");
+
+CREATE TABLE retired (id INTEGER PRIMARY KEY AUTOINCREMENT, person_id INTEGER, working TEXT);
+
+INSERT INTO retired (person_id, working) VALUES (1,"Not Retired");
+INSERT INTO retired (person_id, working) VALUES (2,"Not Retired");
+INSERT INTO retired (person_id, working) VALUES (3,"Not Retired");
+INSERT INTO retired (person_id, working) VALUES (4,"Retired");
+INSERT INTO retired (person_id, working) VALUES (5,"Retired");
+
+SELECT persons.person_id, persons.first_name, persons.last_name FROM persons; 
+ 
+ SELECT profession.person_id, profession.job FROM profession;
+ 
+ SELECT retired.person_id, retired.working FROM retired
+ JOIN persons
+ ON retired.person_id=persons.person_id
+ 
