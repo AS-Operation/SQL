@@ -1,0 +1,19 @@
+CREATE TABLE Store (id INTEGER PRIMARY KEY, name TEXT, item TEXT, quantity INTEGER , price INTEGER);
+INSERT INTO Store VALUES (1, "Ocean Breese", "Candle", 10, 12);
+INSERT INTO Store VALUES (2, "Pink Sands", "Candle", 10, 12);
+INSERT INTO Store VALUES (3, "Lemon Lavender","Candle", 10, 12);
+INSERT INTO Store VALUES (4, "Mid Summers Night","Candle", 10, 12);
+INSERT INTO Store VALUES (5, "Clean Cotton","Candle", 10, 14);
+INSERT INTO Store VALUES (6, "Beach Escape","Candle", 10, 14);
+INSERT INTO Store VALUES (7, "Wild Orchid","Candle", 10, 14;
+INSERT INTO Store VALUES (8, "Fresh Cut Roses","Candle", 10, 14);
+INSERT INTO Store VALUES (9, "Bayside Cedar","Candle", 10, 16);
+INSERT INTO Store VALUES (10, "Ocean Air","Candle", 10, 16);
+INSERT INTO Store VALUES (11, "Sage","Candle", 10, 16);
+INSERT INTO Store VALUES (12, "Citrus","Candle", 10, 16);
+INSERT INTO Store VALUES (13, "Lemon","Candle", 10, 18);
+INSERT INTO Store VALUES (14, "Lavender","Candle", 10, 18);
+INSERT INTO Store VALUES (15, "Santa's Cookies","Candle", 10, 18);
+
+SELECT * FROM Store;
+SELECT SUM(quantity) FROM Store;
