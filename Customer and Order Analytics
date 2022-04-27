@@ -73,3 +73,9 @@ WHERE Product like '%Batteries%'
 SELECT distinct Product, Price
 FROM BIT_DB.FebSales 
 WHERE Price like '%.99'
+
+#Find the products and amount sold in Febuary sales in Los Angeles?
+SELECT Product, SUM(quantity)
+FROM BIT_DB.FebSales 
+WHERE location like '%Los Angeles%'
+GROUP BY Product
