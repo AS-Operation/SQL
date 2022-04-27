@@ -49,27 +49,27 @@
  WHERE Feb.Quantity>2
 
 
-#1.Find all orders from 02/13/19 to 02/18/19?
+#8.Find all orders from 02/13/19 to 02/18/19?
 SELECT orderdate
 FROM BIT_DB.FebSales
 WHERE orderdate between '02/13/19 00:00' AND '02/18/19 00:00'
 
-#2. Where is the order located on 02/18/19 at 01:35?
+#9. Where is the order located on 02/18/19 at 01:35?
 SELECT location
 FROM BIT_DB.FebSales 
 WHERE orderdate = '02/18/19 01:35'
 
-#3.Find total quantity on 02/18/19?
+#10.Find total quantity on 02/18/19?
 SELECT sum(quantity)
 FROM BIT_DB.FebSales 
 WHERE orderdate like '02/18/19%'
 
-#4. What kind of batteries are sold in Febuary?
+#11. What kind of batteries are sold in Febuary?
 SELECT distinct Product
 FROM BIT_DB.FebSales
 WHERE Product like '%Batteries%'
 
-#5. What products have a price of .99 cents or more in Febuary?
+#12. What products have a price of .99 cents or more in Febuary?
 SELECT distinct Product, Price
 FROM BIT_DB.FebSales 
 WHERE Price like '%.99'
