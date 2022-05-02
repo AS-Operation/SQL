@@ -1,0 +1,244 @@
+
+#1 Query all columns for all American cities in the CITY table with populations larger than 100000. 
+#The CountryCode for America is USA.
+SELECT * FROM CITY
+WHERE COUNTRYCODE = 'USA'
+AND POPULATION > 100000;
+
+
+#2 Query the NAME field for all American cities in the CITY table with populations larger than 120000. 
+#The CountryCode for America is USA.
+SELECT NAME 
+FROM CITY
+WHERE CountryCode = 'USA'
+AND POPULATION > 120000;
+
+#3 Query all columns (attributes) for every row in the CITY table.
+SELECT * FROM CITY;
+
+#4 Query all attributes of every Japanese city in the CITY table. The COUNTRYCODE for Japan is JPN.
+SELECT * FROM CITY
+WHERE COUNTRYCODE = 'JPN';
+
+#5 Query the names of all the Japanese cities in the CITY table. The COUNTRYCODE for Japan is JPN.
+SELECT NAME 
+FROM CITY
+WHERE COUNTRYCODE = 'JPN';
+
+#6 Query a list of CITY and STATE from the STATION table. 
+SELECT CITY, STATE 
+FROM STATION;
+
+#7 Query a list of CITY names from STATION for cities that have an even ID number. 
+#Print the results in any order, but exclude duplicates from the answer.  
+SELECT DISTINCT(CITY) 
+FROM STATION 
+WHERE (ID%2)=0 ;
+
+#8 Find the difference between the total number of CITY entries in the table and the number of distinct CITY entries in the table. 
+SELECT (COUNT(CITY) - COUNT(DISTINCT CITY)) FROM STATION;
+
+#9 Query the two cities in STATION with the shortest and longest CITY names, 
+#as well as their respective lengths (i.e.: number of characters in the name). 
+#If there is more than one smallest or largest city, choose the one that comes first when ordered alphabetically. 
+SELECT CITY, length(CITY) 
+FROM STATION
+ORDER BY length(CITY),CITY ASC
+LIMIT 1;
+SELECT CITY, length(CITY) 
+FROM STATION
+ORDER BY length(CITY) DESC
+LIMIT 1;
+
+#10 Query the list of CITY names starting with vowels (i.e., a, e, i, o, or u) from STATION. 
+#Your result cannot contain duplicates. Input Format
+SELECT DISTINCT(CITY) 
+FROM STATION 
+WHERE LEFT(LOWER(CITY), 1) IN ('a', 'e', 'i', 'o', 'u');
+
+#11 Query the list of CITY names ending with vowels (a, e, i, o, u) from STATION. 
+#Your result cannot contain duplicates.
+SELECT DISTINCT(CITY) 
+FROM STATION 
+WHERE RIGHT(LOWER(CITY),1) IN ('a','e','i','o','u');
+
+#12 Query the list of CITY names from STATION which have vowels (i.e., a, e, i, o, and u) 
+#as both their first and last characters. Your result cannot contain duplicates.
+SELECT DISTINCT CITY 
+FROM STATION 
+WHERE LEFT(CITY,1) IN ('a','e','i','o','u') 
+AND RIGHT(CITY, 1) IN ('a','e','i','o','u');
+
+#13 Query the list of CITY names from STATION that do not start with vowels. 
+#Your result cannot contain duplicates.
+SELECT DISTINCT(CITY) 
+FROM STATION 
+WHERE LEFT(LOWER(CITY), 1) NOT IN ('a', 'e', 'i', 'o', 'u');
+
+
+#14 Query the list of CITY names from STATION that do not end with vowels. 
+#Your result cannot contain duplicates.
+SELECT DISTINCT(CITY) 
+FROM STATION 
+WHERE RIGHT(LOWER(CITY),1) NOT IN ('a','e','i','o','u');
+
+#15 Query the list of CITY names from STATION that either do not start with vowels or do not end with vowels. 
+#Your result cannot contain duplicates.
+SELECT DISTINCT CITY 
+FROM STATION 
+WHERE LEFT(CITY,1) NOT IN ('a','e','i','o','u') 
+OR RIGHT(CITY, 1) NOT IN ('a','e','i','o','u');
+
+#16 Query the list of CITY names from STATION that do not start with vowels and do not end with vowels. 
+#Your result cannot contain duplicates.
+SELECT DISTINCT CITY FROM STATION 
+WHERE LEFT(CITY,1) NOT IN ('a','e','i','o','u') 
+AND RIGHT(CITY, 1) NOT IN ('a','e','i','o','u');
+
+#17 Query the Name of any student in STUDENTS who scored higher than  Marks. Order your output by the last three characters of each name. If two or more students both have names ending in the same last three characters (i.e.: Bobby, Robby, etc.), secondary sort them by ascending ID.
+SELECT NAME FROM STUDENTS 
+WHERE MARKS > 75 
+ORDER BY RIGHT(NAME, 3), ID ASC;
+
+
+#18 Write a query that prints a list of employee names (i.e.: the name attribute) for employees in Employee having a salary greater than  $2000 per month who have been employees for less than 10 months. Sort your result by ascending employee_id.
+#Input Format
+SELECT name
+FROM employee
+WHERE (salary >2000 AND months<10) 
+ORDER BY employee_id ASC;
+
+
+#19 Write a query identifying the type of each record in the TRIANGLES table using its three side lengths. Output one of the following statements for each record in the table:
+#Equilateral: It's a triangle with  sides of equal length.
+#Isosceles: It's a triangle with  sides of equal length.
+#Scalene: It's a triangle with  sides of differing lengths.
+#Not A Triangle: The given values of A, B, and C don't form a triangle.
+SELECT CASE             
+            WHEN A + B > C AND B + C > A AND A + C > B THEN
+                CASE 
+                    WHEN A = B AND B = C THEN 'Equilateral'
+                    WHEN A = B OR B = C OR A = C THEN 'Isosceles'
+                    ELSE 'Scalene'
+                END
+            ELSE 'Not A Triangle'
+        END
+FROM TRIANGLES;
+
+/*20 Query an alphabetically ordered list of all names in OCCUPATIONS, immediately followed by the first letter of each profession as a parenthetical (i.e.: enclosed in parentheses). For example: AnActorName(A), ADoctorName(D), AProfessorName(P), and ASingerName(S).
+Query the number of ocurrences of each occupation in OCCUPATIONS. Sort the occurrences in ascending order, and output them in the following format: 
+There are a total of [occupation_count] [occupation]s.
+where [occupation_count] is the number of occurrences of an occupation in OCCUPATIONS and [occupation] is the lowercase occupation name. If more than one Occupation has the same [occupation_count], they should be ordered alphabetically.
+Note: There will be at least two entries in the table for each type of occupation.
+Input Format*/
+SELECT CONCAT(NAME,CONCAT('(', CONCAT(SUBSTR(occupation,1,1),')'))) 
+FROM OCCUPATIONS 
+ORDER BY NAME;
+
+SELECT CONCAT('There are a total of',CONCAT(' ',CONCAT(count(occupation),CONCAT(' ',CONCAT(LOWER(occupation),'s.'))))) 
+AS TOTAL 
+FROM OCCUPATIONS
+GROUP BY occupation 
+ORDER BY TOTAL;
+
+/*21 Pivot the Occupation column in OCCUPATIONS so that each Name is sorted alphabetically and displayed underneath its corresponding Occupation. The output column headers should be Doctor, Professor, Singer, and Actor, respectively.
+Note: Print NULL when there are no more names corresponding to an occupation.
+Input Format*/
+SELECT ods.name,ops.name,oss.name,oas.name FROM
+(SELECT name, 
+      (SELECT COUNT(DISTINCT name)+1 FROM occupations od2
+       WHERE od2.name < od1.name AND od2.occupation = od1.occupation) As rw
+       FROM occupations od1 WHERE occupation = "Doctor" ORDER BY name ASC) As ods
+RIGHT OUTER JOIN
+(SELECT name, 
+      (SELECT COUNT(DISTINCT name)+1 FROM occupations od2
+       WHERE od2.name < od1.name AND od2.occupation = od1.occupation) As rw
+       FROM occupations od1 WHERE occupation = "Professor" ORDER BY name ASC) As ops
+ON ods.rw = ops.rw
+LEFT OUTER JOIN
+(SELECT name, 
+      (SELECT COUNT(DISTINCT name)+1 FROM occupations od2
+       WHERE od2.name < od1.name AND od2.occupation = od1.occupation) As rw
+       FROM occupations od1 WHERE occupation = "Singer" ORDER BY name ASC) AS oss
+ON ops.rw = oss.rw
+LEFT OUTER JOIN
+(SELECT name, 
+      (SELECT COUNT(DISTINCT name)+1 FROM occupations od2
+       WHERE od2.name < od1.name AND od2.occupation = od1.occupation) As rw
+       FROM occupations od1 WHERE occupation = "Actor" ORDER BY name ASC) AS oas
+ON ops.rw = oas.rw
+
+
+/*22  Write a query that prints a list of employee names (i.e.: the name attribute) from the Employee table in alphabetical order.
+Input Format
+The Employee table containing employee data for a company is described as follows:
+
+where employee_id is an employee's ID number, name is their name, months is the total number of months they've been working for the company, and salary is their monthly salary.*/
+SELECT name FROM Employee ORDER BY name ASC;
+
+
+
+/* 23 Harry Potter and his friends are at Ollivander's with Ron, finally replacing Charlie's old broken wand.
+Hermione decides the best way to choose is by determining the minimum number of gold galleons needed to buy each non-evil wand of high power and age. Write a query to print the id, age, coins_needed, and power of the wands that Ron's interested in, sorted in order of descending power. If more than one wand has same power, sort the result in order of descending age.*/
+SELECT W.id, P.age, W.coins_needed, W.power
+FROM WANDS AS W
+    INNER JOIN WANDS_PROPERTY AS P ON W.code = P.code
+WHERE P.is_evil = 0 AND W.coins_needed = 
+    (SELECT MIN(coins_needed)
+     FROM WANDS AS W1
+        INNER JOIN WANDS_PROPERTY AS P1 ON W1.code = P1.code
+     WHERE W1.power = W.power AND P1.age = P.age)
+ORDER BY W.power DESC, P.age DESC;
+
+
+/*24 Julia asked her students to create some coding challenges. Write a query to print the hacker_id, name, and the total number of challenges created by each student. Sort your results by the total number of challenges in descending order. If more than one student created the same number of challenges, then sort the result by hacker_id. If more than one student created the same number of challenges and the count is less than the maximum number of challenges created, then exclude those students from the result.*/
+/*1st SELECTING THE VALUES requested to be printed*/
+SELECT h.hacker_id, h.name, COUNT(c.challenge_id) AS challenge_counter
+FROM hackers h
+JOIN challenges c
+    ON h.hacker_id = c.hacker_id
+GROUP BY h.hacker_id, h.name
+
+/*2nd applying the values found before*/
+
+HAVING challenge_counter IN (
+    SELECT aux_table.counter
+    FROM(
+        SELECT hacker_id, COUNT(challenge_id) AS counter 
+        FROM challenges
+        GROUP BY hacker_id
+        ORDER BY counter DESC
+    ) AS aux_table
+    GROUP BY aux_table.counter 
+    HAVING COUNT(aux_table.counter) = 1
+)
+OR
+challenge_counter =(
+    SELECT MAX(aux_table.counter)
+    FROM(
+        SELECT hacker_id, COUNT(challenge_id) AS counter
+        FROM challenges
+        GROUP BY hacker_id
+        ORDER BY counter DESC
+    ) AS aux_table)
+/* Finally we order as requested (by counter and hacker_id)*/
+ORDER BY challenge_counter DESC, h.hacker_id ASC;
+
+
+/*25 You did such a great job helping Julia with her last coding contest challenge that she wants you to work on this one, too!
+The total score of a hacker is the sum of their maximum scores for all of the challenges. Write a query to print the hacker_id, name, and total score of the hackers ordered by the descending score. If more than one hacker achieved the same total score, then sort the result by ascending hacker_id. Exclude all hackers with a total score of  0 from your result.*/
+select h.hacker_id, name, sum(score) as total_score
+from
+hackers as h inner join
+/* find max_score*/
+(select hacker_id,  max(score) as score from submissions group by challenge_id, hacker_id) max_score
+
+on h.hacker_id=max_score.hacker_id
+group by h.hacker_id, name
+
+/* don't accept hackers with total_score=0 */
+having total_score > 0
+
+/* finally order as required */
+order by total_score desc, h.hacker_id
+;
